@@ -1,11 +1,24 @@
+//Vue dependencies
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import './registerServiceWorker'
-
+//Bootstrap dependencies
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import router from './router.js'
+import VeeValidate from 'vee-validate'
+import Snotify from 'vue-snotify'
+import 'vue-snotify/styles/simple.css'
+Vue.use(BootstrapVue)
+Vue.use(VeeValidate);
+Vue.use(Snotify)
 Vue.config.productionTip = false
-
 new Vue({
+   created() {
+    AOS.init();
+  },
   router,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')
