@@ -55,6 +55,14 @@ export default {
 			get: (id) => {
 				return r.get( URL_SERVER + '/users/' + id, getHeaders())
 			}
+		},
+		matrix: {
+			index: () => {
+				return r.get(URL_SERVER + '/groups', getHeaders())
+			},
+			delete: (id) => {
+				return r.delete(URL_SERVER + '/groups/' + id, getHeaders())
+			}
 		}
 	}
 }
