@@ -5,6 +5,7 @@ section
 		div.row
 			div.col
 				div.content
+					router-view
 	
 </template>
 
