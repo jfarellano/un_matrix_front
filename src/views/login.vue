@@ -1,5 +1,6 @@
 <template lang="pug">
-	section.container-fluid 
+	section.container-fluid
+		vue-snotify
 		div.row.justify-content-center
 			div.col-md-6.form-container.align-self-center
 				h3 Usuario UniNorte
@@ -14,10 +15,44 @@
 </template>
 
 <script>
+import api from '../requests'
 export default {
 	data(){
 		return{
 			user: {}
+		}
+	},
+	methods: {
+		login() {
+			api.authentication.requests.login(this.user).then((response) => {
+				api.storage.set('secret', response.data.secret)
+				this.$router.push('/app')
+			}).catch( err => {
+				api.error.handdle(err.response, (data) => {
+					switch (data) {
+						case 'authentication':
+							this.user = {}
+							this.$snotify.error('Tus credenciales son invalidas vuelve a intentar de nuevo', 'Error');
+							break;
+						case 'unable_to_login':
+							this.$snotify.error('Puede que este bloqueado tu usuario por el csu o tienes pendiente la actualizacion de datos por favor revisa', 'Error')
+							this.user = {}
+							break;
+						case 'unknown':
+							this.$snotify.error('Algo esta mal, vuelve a intentar', 'Error')
+							break;
+						default:
+							break;
+					}
+				}, () => {
+					this.login()
+				})
+			})
+		}
+	},
+	created(){
+		if(api.authentication.handdler.logged()){
+			this.$router.push('/app')
 		}
 	}
 }

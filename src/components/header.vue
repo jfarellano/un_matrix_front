@@ -14,10 +14,11 @@ nav
 							span Name
 						div(:class="dropClass('dropdown-menu')", aria-labelledby='navbarDropdownMenuLink')
 							router-link.dropdown-item(tag='a', to='/app') Mi Horario
-							a.dropdown-item.logout(@click='userLogout()') Cerrar sesión
+							a.dropdown-item.logout(@click='logout()') Cerrar sesión
 </template>
 
 <script>
+import api from '../requests'
 export default {
   data() {
     return {
@@ -26,6 +27,15 @@ export default {
     };
   },
   methods: {
+    logout() {
+      api.authentication.requests.logout().then(()=>{
+        localStorage.clear()
+        this.$router.push('/')
+      }).catch(() => {
+        localStorage.clear()
+        this.$router.push('/')
+      })
+    },
     collapse() {
       this.show = !this.show;
     },
