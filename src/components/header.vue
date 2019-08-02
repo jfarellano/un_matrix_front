@@ -11,7 +11,7 @@ nav
 				ul.nav.navbar-nav.navbar-right
 					li(:class="dropClass('nav-item user-drop dropdown')", v-click-outside='close')
 						a.user-drop.nav-link.dropdown-toggle(href='#', @click='toggleDropdown()')
-							span Name
+							span {{name}}
 						div(:class="dropClass('dropdown-menu')", aria-labelledby='navbarDropdownMenuLink')
 							router-link.dropdown-item(tag='a', to='/app') Mi Horario
 							a.dropdown-item.logout(@click='logout()') Cerrar sesión
@@ -23,7 +23,8 @@ export default {
   data() {
     return {
       expanded: false,
-      show: false
+      show: false,
+      name: ''
     };
   },
   methods: {
@@ -55,6 +56,9 @@ export default {
       if (this.expanded) return ref + " show";
       else return ref;
     }
+  },
+  created(){
+    this.name = api.storage.get('name')
   },
   directives: {
     "click-outside": {

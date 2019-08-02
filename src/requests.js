@@ -50,6 +50,11 @@ export default {
 			get: (body) => {
 				return r.post( URL_SERVER + '/scraper/student_schedule', body, getHeaders())
 			}
+		},
+		user: {
+			get: (id) => {
+				return r.get( URL_SERVER + '/users/' + id, getHeaders())
+			}
 		}
 	}
 }

@@ -15,79 +15,109 @@
 </template>
 
 <script>
-import api from '../requests'
+import api from "../requests";
 export default {
-	data(){
-		return{
-			user: {}
-		}
-	},
-	methods: {
-		login() {
-			api.authentication.requests.login(this.user).then((response) => {
-				api.storage.set('secret', response.data.secret)
-				this.$router.push('/app')
-			}).catch( err => {
-				api.error.handdle(err.response, (data) => {
-					switch (data) {
-						case 'authentication':
-							this.user = {}
-							this.$snotify.error('Tus credenciales son invalidas vuelve a intentar de nuevo', 'Error');
-							break;
-						case 'unable_to_login':
-							this.$snotify.error('Puede que este bloqueado tu usuario por el csu o tienes pendiente la actualizacion de datos por favor revisa', 'Error')
-							this.user = {}
-							break;
-						case 'unknown':
-							this.$snotify.error('Algo esta mal, vuelve a intentar', 'Error')
-							break;
-						default:
-							break;
-					}
-				}, () => {
-					this.login()
+  data() {
+    return {
+      user: {}
+    };
+  },
+  methods: {
+    getSchedule() {
+			this.user.user = this.user.username
+      api.requests.schedule
+        .get(this.user)
+        .then((response) => {
+					api.storage.set('name', response.data.user.full_name)
+					this.$router.push('/app')
 				})
-			})
-		}
-	},
-	created(){
-		if(api.authentication.handdler.logged()){
-			this.$router.push('/app')
-		}
-	}
-}
+        .catch(err => {
+          api.error.handdle(err.response, () => {}, () => {
+						this.getSchedule()
+					});
+        });
+    },
+    login() {
+      api.authentication.requests
+        .login(this.user)
+        .then(response => {
+					api.storage.set("secret", response.data.secret);
+					this.getSchedule()
+        })
+        .catch(err => {
+          api.error.handdle(
+            err.response,
+            data => {
+              switch (data) {
+                case "authentication":
+                  this.user = {};
+                  this.$snotify.error(
+                    "Tus credenciales son invalidas vuelve a intentar de nuevo",
+                    "Error"
+                  );
+                  break;
+                case "unable_to_login":
+                  this.$snotify.error(
+                    "Puede que este bloqueado tu usuario por el csu o tienes pendiente la actualizacion de datos por favor revisa",
+                    "Error"
+                  );
+                  this.user = {};
+                  break;
+                case "unknown":
+                  this.$snotify.error(
+                    "Algo esta mal, vuelve a intentar",
+                    "Error"
+                  );
+                  break;
+                default:
+                  break;
+              }
+            },
+            () => {
+              this.login();
+            }
+          );
+        });
+    }
+  },
+  created() {
+    if (api.authentication.handdler.logged()) {
+      this.$router.push("/app");
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-	section{
-		min-height: 100vh;
-		background-color: #5cdb95;
-		.row{
-			min-height: 100vh;
-			.form-container{
-				margin: 20px;
-				border-radius: 10px;
-				background-color: white;
-				padding: 20px;
-				text-align: center;
-				color: #05386b;
-				p{
-					color: #808080;
-				}
-				input{
-					width: 100%;
-					border-radius: 5px;
-					border: 2px solid #05386b;
-					color: #5e5e5e;
-					height: 35px;
-				}
-				button{
-					background-color: #05386b;
-					border: none;
-					width: 100%;
-					margin: 20px 0px;
-				}
-			}
-		}
-	}
+section {
+  min-height: 100vh;
+  background-color: #5cdb95;
+  .row {
+    min-height: 100vh;
+    .form-container {
+      margin: 20px;
+      border-radius: 10px;
+      background-color: white;
+      padding: 20px;
+      text-align: center;
+      color: #05386b;
+      p {
+        color: #808080;
+      }
+      input {
+        width: 100%;
+        border-radius: 5px;
+        border: 2px solid #05386b;
+        color: #5e5e5e;
+        height: 35px;
+      }
+      button {
+        background-color: #05386b;
+        border: none;
+        width: 100%;
+        margin: 20px 0px;
+      }
+    }
+  }
+}
 </style>
