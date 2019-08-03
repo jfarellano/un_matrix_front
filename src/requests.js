@@ -1,12 +1,16 @@
 import r from 'axios'
 
 const URL_SERVER = 'https://unimatrix.jfarellano.xyz'
+const WEB_PAGE = 'localhost:8080/#/'
 
 function getHeaders() {
   return {headers: {"Authorization": 'Token token=' + localStorage.getItem('secret')}}
 } 
 
 export default {
+	variables:{
+		WEB_PAGE: WEB_PAGE
+	},
 	authentication: {
 		requests: {
 			login: (body) => {
@@ -62,6 +66,24 @@ export default {
 			},
 			delete: (id) => {
 				return r.delete(URL_SERVER + '/groups/' + id, getHeaders())
+			},
+			create: (body) => {
+				return r.post(URL_SERVER + '/groups', body, getHeaders())
+			},
+			schedule: (id) => {
+				return r.get(URL_SERVER + '/groups/'+id+'/schedule', getHeaders())
+			},
+			getLink: (id) => {
+				return r.get( URL_SERVER + '/groups/'+id+'/links', getHeaders())
+			},
+			createLink: (id) => {
+				return r.post(URL_SERVER + '/groups/'+id+'/links', {}, getHeaders())
+			},
+			deleteLink: (link) => {
+				return r.delete( URL_SERVER + '/groups/links/' + link, getHeaders())
+			},
+			deleteMember: (gid, memberid) => {
+				return r.delete(URL_SERVER + '/groups/'+gid+'/members/'+memberid, getHeaders())
 			}
 		}
 	}
