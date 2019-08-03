@@ -29,7 +29,7 @@ export default {
         .get(this.user)
         .then((response) => {
 					api.storage.set('name', response.data.user.full_name)
-					this.$router.push('/app')
+					this.$router.push('/app/matrix/index')
 				})
         .catch(err => {
           api.error.handdle(err.response, () => {}, () => {
@@ -82,7 +82,7 @@ export default {
   },
   created() {
     if (api.authentication.handdler.logged()) {
-      this.$router.push("/app");
+      this.$router.push("/app/matrix/index");
     }
   }
 };
