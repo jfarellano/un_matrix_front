@@ -1,7 +1,7 @@
 <template lang='pug'>
 nav
 	b-navbar(toggleable='sm', fixed='top')
-		b-navbar-brand
+		b-navbar-brand(href="/#/app/matrix/index")
 			// <img src="../assets/CamaraBaq-24.svg" alt="Ciudá">
 			| un_matrix
 		button.navbar-toggler.ml-auto(type='button', data-toggle='collapse', data-target='#nav-collapse', aria-controls='navbarSupportedContent', :aria-expanded='show', @click='collapse()')
