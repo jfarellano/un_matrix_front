@@ -85,6 +85,14 @@ export default {
 			deleteMember: (gid, memberid) => {
 				return r.delete(URL_SERVER + '/groups/'+gid+'/members/'+memberid, getHeaders())
 			}
+		},
+		share:{
+			add: (link) => {
+				return r.post( URL_SERVER + '/groups/links/' + link , {}, getHeaders())
+			},
+			show: (link) => {
+				return r.get(URL_SERVER + '/groups/links/schedule/' + link)
+			}
 		}
 	}
 }

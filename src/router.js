@@ -4,6 +4,8 @@ import Login from './views/login.vue'
 import App from './views/app.vue'
 import matrixIndex from './components/matrix/index.vue'
 import matrixShow from './components/matrix/show.vue'
+import Show from './views/share/view.vue'
+import Add from './views/share/add.vue'
 Vue.use(Router)
 export default new Router ({
     routes: [
@@ -28,6 +30,16 @@ export default new Router ({
                     component: matrixShow
                 }
             ]
+        },
+        {
+            path: '/show/:link',
+            name: 'Show',
+            component: Show
+        },
+        {
+            path: '/add/:link',
+            name: 'Add',
+            component: Add
         }
     ]
 })
