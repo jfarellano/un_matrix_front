@@ -58,7 +58,8 @@ export default {
     }
   },
   created(){
-    this.name = api.storage.get('name')
+    if (api.authentication.handdler.logged) this.name = api.storage.get('name')
+    else this.$router.push('/')
   },
   directives: {
     "click-outside": {
