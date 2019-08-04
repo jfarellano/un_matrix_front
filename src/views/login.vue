@@ -3,6 +3,7 @@
 		vue-snotify
 		div.row.justify-content-center
 			div.col-md-6.form-container.align-self-center
+				img(src="../assets/stack.svg")
 				h3 Usuario UniNorte
 				div.input-group
 					input(v-model="user.username" placeholder="ej. eperez")
@@ -101,6 +102,9 @@ section {
       padding: 20px;
       text-align: center;
       color: #05386b;
+			img{
+				width: 40%;
+			}
       p {
         color: #808080;
       }

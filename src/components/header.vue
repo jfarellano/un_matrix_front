@@ -2,8 +2,7 @@
 nav
 	b-navbar(toggleable='sm', fixed='top')
 		b-navbar-brand(href="/#/app/matrix/index")
-			// <img src="../assets/CamaraBaq-24.svg" alt="Ciudá">
-			| un_matrix
+			<img src="../assets/line.svg" alt="un_matrix">
 		button.navbar-toggler.ml-auto(type='button', data-toggle='collapse', data-target='#nav-collapse', aria-controls='navbarSupportedContent', :aria-expanded='show', @click='collapse()')
 			span.navbar-toggler-icon
 		#nav-collapse(:class='collapseClass()')
@@ -18,24 +17,27 @@ nav
 </template>
 
 <script>
-import api from '../requests'
+import api from "../requests";
 export default {
   data() {
     return {
       expanded: false,
       show: false,
-      name: ''
+      name: ""
     };
   },
   methods: {
     logout() {
-      api.authentication.requests.logout().then(()=>{
-        localStorage.clear()
-        this.$router.push('/')
-      }).catch(() => {
-        localStorage.clear()
-        this.$router.push('/')
-      })
+      api.authentication.requests
+        .logout()
+        .then(() => {
+          localStorage.clear();
+          this.$router.push("/");
+        })
+        .catch(() => {
+          localStorage.clear();
+          this.$router.push("/");
+        });
     },
     collapse() {
       this.show = !this.show;
@@ -57,9 +59,9 @@ export default {
       else return ref;
     }
   },
-  created(){
-    if (api.authentication.handdler.logged) this.name = api.storage.get('name')
-    else this.$router.push('/')
+  created() {
+    if (api.authentication.handdler.logged) this.name = api.storage.get("name");
+    else this.$router.push("/");
   },
   directives: {
     "click-outside": {
@@ -92,16 +94,19 @@ export default {
     }
   }
   .navbar-brand {
-    color: #05386b;
+    img {
+      height: 50px;
+      margin-left: 6%;
+    }
   }
   .dropdown-menu {
     top: 65px;
     right: 2px !important;
     left: auto;
   }
-	.dropdown-item{
-		color: #05386b;
-	}
+  .dropdown-item {
+    color: #05386b;
+  }
   .nav-link {
     color: #05386b;
     font-size: 22px;
@@ -111,9 +116,9 @@ export default {
       margin-right: 10px;
     }
   }
-	.logout{
-		color: red;
-	}
+  .logout {
+    color: red;
+  }
   .navbar-collapse {
     background-color: #5cdb95;
     text-align: center;

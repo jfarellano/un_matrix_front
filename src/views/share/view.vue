@@ -1,9 +1,13 @@
 <template lang="pug">
 section.container-fluid.main-container
   div.row
-    div.col
+    div.col.grow-col
       div.content
         div.container-fluid
+          div.row
+            div.col
+              a(href="/" )
+                img(src="../../assets/line.svg", alt='un_matrix')
           div.row
             div.col-md-4
               h5 Miembros de la matriz
@@ -86,7 +90,12 @@ export default {
 
 <style lang="scss" scoped>
 .main-container{
-  .col{
+  text-align: center;
+  img{
+    margin: 20px;
+    height: 50px;
+  }
+  .grow-col{
 		background-color: #5cdb95;
     min-height: 100vh;
     padding-top: 30px;
