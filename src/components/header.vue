@@ -12,7 +12,7 @@ nav
 						a.user-drop.nav-link.dropdown-toggle(href='#', @click='toggleDropdown()')
 							span {{name}}
 						div(:class="dropClass('dropdown-menu')", aria-labelledby='navbarDropdownMenuLink')
-							router-link.dropdown-item(tag='a', to='/app') Mi Horario
+							//- router-link.dropdown-item(tag='a', to='/app') Mi Horario
 							a.dropdown-item.logout(@click='logout()') Cerrar sesión
 </template>
 
