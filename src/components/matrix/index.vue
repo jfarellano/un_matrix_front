@@ -31,7 +31,8 @@ export default {
       api.requests.matrix
         .index()
         .then(response => {
-          this.matrixes = response.data;
+          if (response.data.groups == 'the user does not own a group!') this.matrixes = []
+          else this.matrixes = response.data.groups;
         })
         .catch(() => {
           this.$snotify.error("Algo no salio bien, intenta de nuevo", "Error");
