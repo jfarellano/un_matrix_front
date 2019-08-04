@@ -1,7 +1,7 @@
 import r from 'axios'
 
 const URL_SERVER = 'https://unimatrix.jfarellano.xyz'
-const WEB_PAGE = 'localhost:8080/#/'
+const WEB_PAGE = 'https://un-matrix.idea-la.com/#/'
 
 function getHeaders() {
   return {headers: {"Authorization": 'Token token=' + localStorage.getItem('secret')}}
